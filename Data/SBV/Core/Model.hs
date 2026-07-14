@@ -49,6 +49,7 @@ module Data.SBV.Core.Model (
   , sFloatingPoint, sFloatingPoint_, sFloatingPoints
   , sRoundNearestTiesToEven, sRoundNearestTiesToAway, sRoundTowardPositive, sRoundTowardNegative, sRoundTowardZero
   , sRNE, sRNA, sRTP, sRTN, sRTZ
+  , sCaseRoundingMode
   , sChar, sChar_, sChars, sString, sString_, sStrings, sList, sList_, sLists
   , sRational, sRational_, sRationals
   , SymTuple, sTuple, sTuple_, sTuples
@@ -311,6 +312,16 @@ sRTN = sRoundTowardNegative
 -- | Alias for 'sRoundTowardZero'
 sRTZ :: SRoundingMode
 sRTZ = sRoundTowardZero
+
+-- | Case analyzer for the type 'RoundingMode'.
+sCaseRoundingMode ::
+  Mergeable r => r -> r -> r -> r -> r -> SRoundingMode -> r
+sCaseRoundingMode fRNE fRNA fRTP fRTN fRTZ rm =
+  ite (rm .== sRNE) fRNE $
+  ite (rm .== sRNA) fRNA $
+  ite (rm .== sRTP) fRTP $
+  ite (rm .== sRTN) fRTN $
+                    fRTZ
 
 
 instance SymVal Char where
