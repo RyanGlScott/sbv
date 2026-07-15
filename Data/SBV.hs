@@ -235,7 +235,7 @@ module Data.SBV (
   , SReal, AlgReal(..)
   , sRealToSInteger, sRealToSIntegerFloor
   , sRealToSIntegerCeiling, sRealToSIntegerTruncate
-  , sRealToSIntegerRoundAway, sRealToSIntegerRoundToEven
+  , sRealToSIntegerRoundAway, sRealToSIntegerRoundToEven, sRealToSIntegerRM
   , algRealToRational, RealPoint(..), realPoint, RationalCV(..)
   -- ** Characters, Strings and Regular Expressions
   -- $strings

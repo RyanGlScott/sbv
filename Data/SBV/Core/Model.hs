@@ -60,7 +60,7 @@ module Data.SBV.Core.Model (
   , slet
   , sRealToSInteger, sRealToSIntegerFloor
   , sRealToSIntegerCeiling, sRealToSIntegerTruncate
-  , sRealToSIntegerRoundAway, sRealToSIntegerRoundToEven
+  , sRealToSIntegerRoundAway, sRealToSIntegerRoundToEven, sRealToSIntegerRM
   , label, observe, observeIf, sObserve
   , sAssert
   , liftQRem, liftDMod, symbolicMergeWithKind
@@ -972,6 +972,17 @@ sRealToSIntegerRoundToEven x
 
     diff :: SReal
     diff = x - sFromIntegral lo
+
+-- | Convert an SReal to an SInteger according to the supplied SRoundingMode.
+sRealToSIntegerRM :: SRoundingMode -> SReal -> SInteger
+sRealToSIntegerRM rm x =
+  sCaseRoundingMode
+    (sRealToSIntegerRoundToEven x)
+    (sRealToSIntegerRoundAway x)
+    (sRealToSIntegerCeiling x)
+    (sRealToSIntegerFloor x)
+    (sRealToSIntegerTruncate x)
+    rm
 
 -- | label: Label the result of an expression. This is essentially a no-op, but useful as it generates a comment in the generated C/SMT-Lib code.
 -- Note that if the argument is a constant, then the label is dropped completely, per the usual constant folding strategy. Compare this to 'observe'
