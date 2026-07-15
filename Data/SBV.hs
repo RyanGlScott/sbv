@@ -235,6 +235,7 @@ module Data.SBV (
   , sRationalToSIntegerTruncate
   , sRationalToSIntegerRoundAway
   , sRationalToSIntegerRoundToEven
+  , sRationalToSIntegerRM
   -- ** Algebraic reals
   -- $algReals
   , SReal, AlgReal(..)

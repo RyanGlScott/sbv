@@ -22,6 +22,7 @@ module Data.SBV.Rational (
     , sRationalToSIntegerTruncate
     , sRationalToSIntegerRoundAway
     , sRationalToSIntegerRoundToEven
+    , sRationalToSIntegerRM
     ) where
 
 import qualified Data.Ratio as R
@@ -146,6 +147,18 @@ sRationalToSIntegerRoundToEven x
 
     diff :: SRational
     diff = x - (lo .% 1)
+
+-- | Convert an SRational to an SInteger according to the supplied
+-- SRoundingMode.
+sRationalToSIntegerRM :: SRoundingMode -> SRational -> SInteger
+sRationalToSIntegerRM rm x =
+  sCaseRoundingMode
+    (sRationalToSIntegerRoundToEven x)
+    (sRationalToSIntegerRoundAway x)
+    (sRationalToSIntegerCeiling x)
+    (sRationalToSIntegerFloor x)
+    (sRationalToSIntegerTruncate x)
+    rm
 
 -- | Get the numerator. Note that this is always symbolic since we don't have a concrete representation.
 -- Furthermore this is only used internally and is not exported to the user, since it is not canonical.
