@@ -232,7 +232,11 @@ module Data.SBV (
   , SRational, (.%)
   -- ** Algebraic reals
   -- $algReals
-  , SReal, AlgReal(..), sRealToSInteger, algRealToRational, RealPoint(..), realPoint, RationalCV(..)
+  , SReal, AlgReal(..)
+  , sRealToSInteger, sRealToSIntegerFloor
+  , sRealToSIntegerCeiling, sRealToSIntegerTruncate
+  , sRealToSIntegerRoundAway, sRealToSIntegerRoundToEven
+  , algRealToRational, RealPoint(..), realPoint, RationalCV(..)
   -- ** Characters, Strings and Regular Expressions
   -- $strings
   , SChar, SString
